@@ -44,6 +44,18 @@ export const Menu = styled.ul`
       opacity: 0.6;
     }
   }
+
+  h3 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+    margin-bottom: 2px;
+    margin-top: 6px;
+
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
 `;
 
 export const MenuIcon = styled(IconSax)`

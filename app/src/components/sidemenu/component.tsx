@@ -28,7 +28,10 @@ export function Sidemenu({ navigationItems }: SideMenuProps) {
         <ul aria-label="Menu de Opções de Navegação">
           {navigationItems.map(
             ({ ariaLabel, icon, path, tooltipContent }) => (
-              <S.NavItem isCurrentPath={path.includes(currentPath)}>
+              <S.NavItem
+                key={path}
+                isCurrentPath={path.includes(currentPath)}
+              >
                 <Link to={path} aria-label={ariaLabel} key={path}>
                   <Tooltip content={tooltipContent} key={path}>
                     <li aria-label={ariaLabel} key={path}>

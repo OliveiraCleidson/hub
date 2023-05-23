@@ -7,7 +7,17 @@ import { IconSaxProps } from '../iconsax/types';
 export type PageMenuProps = {
   title: string;
   modulePath: string;
-  menuItems: {
+  menuGroups: {
+    title: string;
+    slug: string;
+    menuItems: {
+      title: string;
+      path: string;
+      icon: IconSaxProps;
+      ariaLabel: string;
+    }[];
+  }[];
+  menuItemWithoutGroup?: {
     title: string;
     path: string;
     icon: IconSaxProps;
@@ -15,26 +25,47 @@ export type PageMenuProps = {
   }[];
 };
 
-export function PageMenu({ menuItems, modulePath, title }: PageMenuProps) {
+export function PageMenu({
+  menuGroups = [],
+  menuItemWithoutGroup = [],
+  modulePath,
+  title,
+}: PageMenuProps) {
   return (
     <S.Container>
       <S.Title>
         <Link to={modulePath}>{title}</Link>
       </S.Title>
       <S.Menu>
-        {menuItems.map((item) => {
-          return (
-            <li key={item.path}>
-              <Link
-                to={`${modulePath}${item.path}`}
-                aria-label={item.ariaLabel}
-              >
-                <S.MenuIcon {...item.icon} />
-                {item.title}
-              </Link>
-            </li>
-          );
-        })}
+        {menuItemWithoutGroup.map((item) => (
+          <li key={item.path}>
+            <Link
+              to={`${modulePath}${item.path}`}
+              aria-label={item.ariaLabel}
+            >
+              <S.MenuIcon {...item.icon} />
+              {item.title}
+            </Link>
+          </li>
+        ))}
+        {menuGroups.map((group) => (
+          <div key={group.slug}>
+            <h3>{group.title}</h3>
+            {group.menuItems.map((item) => {
+              return (
+                <li key={item.path}>
+                  <Link
+                    to={`${modulePath}${item.path}`}
+                    aria-label={item.ariaLabel}
+                  >
+                    <S.MenuIcon {...item.icon} />
+                    {item.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </div>
+        ))}
       </S.Menu>
     </S.Container>
   );

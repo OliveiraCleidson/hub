@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import { DashboardPage } from './pages/dashboard/component';
+import { TenantPage } from './pages/tenants/component';
 
 import { WrapPage } from '../../components';
 
@@ -11,6 +12,14 @@ function routesFactory(routePrefix: string) {
       element: (
         <WrapPage>
           <DashboardPage />
+        </WrapPage>
+      ),
+    },
+    {
+      path: routePrefix + '/tenants',
+      element: (
+        <WrapPage>
+          <TenantPage />
         </WrapPage>
       ),
     },

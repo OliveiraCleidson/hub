@@ -11,8 +11,10 @@ const Container = styled.div`
 
 export function WrapPage({ children }: { children: React.ReactNode }) {
   const { modules } = useApplicationModules();
-  const currentModulePath = window.location.pathname.split('/')[1];
-  const currentModule = modules.find((m) => m.name === currentModulePath);
+  const currentModulePath = window.location.pathname;
+  const currentModule = modules.find((m) =>
+    new RegExp(`^${m.sideMenuNavItem.path}`).test(currentModulePath),
+  );
 
   return (
     <Container>

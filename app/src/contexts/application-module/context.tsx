@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { ApplicationModuleContextProps } from './types';
 
@@ -17,6 +18,8 @@ import { ApplicationModuleContextProps } from './types';
 //   },
 // ];
 
+const queryClient = new QueryClient();
+
 export const ApplicationModuleContext =
   createContext<ApplicationModuleContextProps>({ modules: [] });
 
@@ -24,12 +27,14 @@ export function ApplicationModuleProvider(
   props: ApplicationModuleContextProps,
 ) {
   return (
-    <ApplicationModuleContext.Provider value={props}>
-      <RouterProvider
-        router={createBrowserRouter(
-          props.modules.map((m) => m.routes).flat(),
-        )}
-      />
-    </ApplicationModuleContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <ApplicationModuleContext.Provider value={props}>
+        <RouterProvider
+          router={createBrowserRouter(
+            props.modules.map((m) => m.routes).flat(),
+          )}
+        />
+      </ApplicationModuleContext.Provider>
+    </QueryClientProvider>
   );
 }
